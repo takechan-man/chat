@@ -1,3 +1,6 @@
+const environment = process.env.NODE_ENV || 'development'
+require('dotenv').config()
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -35,7 +38,24 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    // https://go.nuxtjs.dev/axios
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+    '@nuxtjs/dotenv',
   ],
+
+  proxy: {
+    '/api':
+      environment === 'development'
+        ? process.env.API_URL
+        : 'https://www.example.org',
+  },
+
+  axios: {
+    baseURL: process.env.API_URL,
+    browserBaseURL: process.env.API_BROWSER_URL,
+    credentials: true,
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
