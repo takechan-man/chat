@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    public function test()
+    public function store(Request $request)
     {
-        Log::info('aaa');
-        dd('chat');
+        Log::info($request);
+        Log::info('post');
     }
 }

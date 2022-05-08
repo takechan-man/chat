@@ -1,36 +1,52 @@
 <template>
   <div>
     {{ greet }}
-    <input @update="updateMessage" :value="message" type="textarea">
+    <input
+      type="textarea"
+      v-model="message"
+    >
     <button @click.prevent="submit">
       送信
     </button>
+    <button @click.prevent="test">
+      表示
+    </button>
+    {{ testText }}
   </div>
 </template>
 
 <script>
-export default{
+export default {
   async asyncData({ app }) {
     const greet = await app.$axios.$get('/').catch((err) => err)
     return { greet }
   },
+  data() {
+    return {
+      first: '',
+    }
+  },
   computed: {
     message: {
-      get() {
-        this.$store.state.chat.data.text
+      get () {
+        return this.first
       },
-      set(val) {
-        this.$store.commit('chat/SET_TEXT', val)
-      },
+      set (value) {
+        this.first = value
+        this.$store.commit('chat/SET_TEXT', value)
+      }
+    },
+    testText() {
+      return this.$store.state.chat.data.test
     }
   },
   methods: {
-    updateMessage(val) {
-      this.$store.commit('chat/SET_TEXT', val)
-    },
     submit() {
+      console.log(this.message)
       this.$store.dispatch('chat/submit')
-      this.$axios.post('/chat', this.message, headers)
+    },
+    test() {
+      this.$store.dispatch('chat/test')
     }
   }
 }

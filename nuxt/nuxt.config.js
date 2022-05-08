@@ -34,6 +34,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    `@nuxtjs/dotenv`
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -55,9 +56,15 @@ export default {
     baseURL: process.env.API_URL,
     browserBaseURL: process.env.API_BROWSER_URL,
     credentials: true,
+    proxy:true,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+  watchers: {
+    webpack: {
+      poll: process.env.WATCH_POLL,
+    },
+  },
 }
