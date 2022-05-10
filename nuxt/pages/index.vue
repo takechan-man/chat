@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.message)
       this.$store.dispatch('chat/submit')
     },
     test() {
