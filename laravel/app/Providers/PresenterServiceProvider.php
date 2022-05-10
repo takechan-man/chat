@@ -13,7 +13,7 @@ class PresenterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(\App\Repository\Chat\ChatPresenterInterface::class, \App\Repository\Chat\ChatPresenter::class);
     }
 
     /**
