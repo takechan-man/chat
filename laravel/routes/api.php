@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/login', 'AuthController@login');
+Route::post('/logout', 'AuthController@logout');
+
 Route::get('/', 'TestController@test');
+Route::get('/chat', 'ChatController@index');
 Route::post('/chat', 'ChatController@store');

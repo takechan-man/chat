@@ -22,6 +22,12 @@ class ChatController extends Controller
         $this->repository = $repository;
     }
 
+    public function index()
+    {
+        Log::info('index');
+        return 'index';
+    }
+
     public function store(Request $request)
     {
         $this->repository->send($request);
