@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!-- <ul>
-      <li v-for="(message,i) in messages" :key="i">
-        {{ message }}
-      </li>
-    </ul> -->
     {{ greet }}
     <input
       type="textarea"
@@ -24,7 +19,6 @@
 export default {
   async asyncData({ app }) {
     const greet = await app.$axios.$get('/').catch((err) => err)
-    console.log(greet)
     return { greet }
   },
   data() {
@@ -33,14 +27,15 @@ export default {
     }
   },
   computed: {
-    // messages: {
-    //   get () {
-    //     return this.$store.state.chat.data.text
-    //   },
-    //   set (value) {
-    //     this.$store.commit('chat/SET_TEXT', value)
-    //   }
-    // },
+    message: {
+      get () {
+        return this.first
+      },
+      set (value) {
+        this.first = value
+        this.$store.commit('chat/SET_TEXT', value)
+      }
+    },
     testText() {
       return this.$store.state.chat.data.test
     }
